@@ -1,0 +1,12 @@
+[2022-06-16 10:43:25] local.ERROR: Class 'HTML' not found {"exception":"[object] (Error(code: 0): Class 'HTML' not found at D:\\Projects\\OpenServer\\domains\\mydevice.ua\\public\\index.php:62)
+[stacktrace]
+#0 {main}
+"} 
+[2022-06-16 10:43:31] local.ERROR: Class 'HTML' not found {"exception":"[object] (Error(code: 0): Class 'HTML' not found at D:\\Projects\\OpenServer\\domains\\mydevice.ua\\public\\index.php:62)
+[stacktrace]
+#0 {main}
+"} 
+[2022-06-16 10:44:53] local.ERROR: Class 'HTML' not found {"exception":"[object] (Error(code: 0): Class 'HTML' not found at D:\\Projects\\OpenServer\\domains\\mydevice.ua\\public\\index.php:62)
+[stacktrace]
+#0 {main}
+"} 
