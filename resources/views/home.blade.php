@@ -1,6 +1,8 @@
-<?php $__env->startSection('title'); ?>Головна сторінка - MyDevice.ua <?php $__env->stopSection(); ?>
+@extends('layouts.defaultLayout')
 
-<?php $__env->startSection('main_content'); ?>
+@section('title')Головна сторінка - MyDevice.ua @endsection
+
+@section('main_content')
 
 <header>
     <div class="container">
@@ -38,15 +40,13 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 d-flex justify-content-center">
-                <?php echo $__env->make('layouts.productCard', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+            @include('layouts.productCard', ['type' => 'discount'])
             </div>
             <div class="col-lg-6 d-flex justify-content-center">
-                <?php echo $__env->make('layouts.productCard', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                @include('layouts.productCard')
             </div>
         </div>
     </div>
 </section>
 
-<?php $__env->stopSection(); ?>
-
-<?php echo $__env->make('layouts.defaultLayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\Projects\OpenServer\domains\mydevice.ua\resources\views/home.blade.php ENDPATH**/ ?>
+@endsection
