@@ -38,12 +38,19 @@
 
 <section class="popular-products">
     <div class="container">
-        <div class="row">
+        <h1 class="text-center">Популярні товари</h1>
+        <div class="row" style="margin-top: 40px;">
             <div class="col-lg-6 d-flex justify-content-center">
-            @include('layouts.productCard', ['type' => 'discount'])
+                @include('layouts.productCard', ['type' => 'discount'])
             </div>
             <div class="col-lg-6 d-flex justify-content-center">
-                @include('layouts.productCard')
+                @include('layouts.productCard', ['type' => 'discount'])
+            </div>
+            <div class="col-lg-6 d-flex justify-content-center">
+                @include('layouts.productCard', ['type' => 'discount'])
+            </div>
+            <div class="col-lg-6 d-flex justify-content-center">
+                @include('layouts.productCard', ['type' => 'normal'])
             </div>
         </div>
     </div>
