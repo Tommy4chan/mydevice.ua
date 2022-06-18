@@ -32,4 +32,8 @@ class Order extends Model
         }
 
     }
+
+    public function isBasketNotEmpty(){
+        return $this->products->count() !== 0;
+    }
 }

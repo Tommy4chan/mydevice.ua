@@ -42,6 +42,22 @@
                     <li class="nav-item">
                         <a class="nav-link {{ Route::currentRouteNamed('basket') ?  'active' : '' }}" href="{{route('basket')}}">Корзина</a>
                     </li>
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::currentRouteNamed('login') ?  'active' : '' }}" href="{{route('login')}}">Увійти</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::currentRouteNamed('register') ?  'active' : '' }}" href="{{route('register')}}">Зареєструватися</a>
+                        </li>
+                    @endguest
+                    @auth
+                        <li class="nav-item">
+                            <a class="nav-link {{ Route::currentRouteNamed('admin-orders') ?  'active' : '' }}" href="{{route('admin-orders')}}">Панель адміністратора</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('get-logout')}}">Вийти</a>
+                        </li>
+                    @endauth
                 </ul>
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
