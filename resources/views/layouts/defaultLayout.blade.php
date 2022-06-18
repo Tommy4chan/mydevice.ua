@@ -5,37 +5,42 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{ URL::to('/') }}/css/style.css">
     <title>@yield('title')</title>
 </head>
 
 <body>
     <nav class="navbar fixed-top navbar-expand-lg bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#"><img src="/img/logo.png" alt="" width="35" height="35"></a>
+            <a class="navbar-brand" href="{{route('home')}}"><img src="/img/logo.png" alt="" width="35" height="35"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Головна сторінка</a>
+                        <a class="nav-link {{ Route::currentRouteNamed('home') ?  'active' : '' }}" aria-current="page" href="{{route('home')}}">Головна сторінка</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/hotprices">Гарячі ціни</a>
+                        <a class="nav-link {{ Route::currentRouteNamed('hotprices') ?  'active' : '' }}" href="{{route('hotprices')}}">Гарячі ціни</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Категорії
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Телефони</a></li>
-                            <li><a class="dropdown-item" href="#">Ноутбуки</a></li>
-                            <li>
+                            @foreach($categoriesList as $category)
+                            <li><a class="dropdown-item {{ Request::url() == route('category', $category->code) ?  'active' : '' }}" href="{{route('category', $category->code)}}">{{$category->name}}</a></li>
+                            @endforeach
+
+                            <!-- <li>
                                 <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Гарнітури</a></li>
+                            </li> -->
+
                         </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::currentRouteNamed('basket') ?  'active' : '' }}" href="{{route('basket')}}">Корзина</a>
                     </li>
                 </ul>
                 <form class="d-flex" role="search">
@@ -45,6 +50,17 @@
             </div>
         </div>
     </nav>
+    @if(session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 75px;">
+            {{session()->get('success')}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @elseif(session()->has('warning'))
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 75px;">
+            {{session()->get('warning')}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     @yield('main_content')
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
