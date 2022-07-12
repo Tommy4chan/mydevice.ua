@@ -19,17 +19,19 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link {{ Route::currentRouteNamed('home') ?  'active' : '' }}" aria-current="page" href="{{route('home')}}">Головна сторінка покупця</a>
+                        <a class="nav-link @routeactive('home')" aria-current="page" href="{{route('home')}}">Головна сторінка</a>
+                    </li>
+                    @admin
+                    <li class="nav-item">
+                        <a class="nav-link @routeactive('orders*')" href="{{route('orders.index')}}">Замовлення</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Route::currentRouteNamed('admin-orders') ?  'active' : '' }}" href="{{route('admin-orders')}}">Замовлення</a>
+                        <a class="nav-link @routeactive('categories*')" href="{{route('categories.index')}}">Категорії</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Route::currentRouteNamed('categories.index') ?  'active' : '' }}" href="{{route('categories.index')}}">Категорії</a>
+                        <a class="nav-link @routeactive('products*')" href="{{route('products.index')}}">Товари</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::currentRouteNamed('admin-orders') ?  'active' : '' }}" href="{{route('admin-orders')}}">Товари</a>
-                    </li>
+                    @endadmin
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('get-logout')}}">Вийти</a>
                     </li>

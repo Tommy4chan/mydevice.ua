@@ -10,12 +10,21 @@ class Order extends Model
         return $this->belongsToMany(Product::class)->withPivot('count')->withTimestamps();
     }
 
-    public function getFullSum(){
+    public function calculateFullSum(){
         $sum = 0;
         foreach($this->products as $product){
             $sum += $product->getPriceForCount();
         }
         return $sum;
+    }
+
+    public static function changeFullSum($changeSum){
+        $sum = self::getFullSum() + $changeSum;
+        session(['full_order_sum' => $sum]);
+    }
+
+    public static function getFullSum(){
+        return session('full_order_sum', 0);
     }
 
     public function saveOrder($name, $phone){
@@ -31,9 +40,5 @@ class Order extends Model
             return false;
         }
 
-    }
-
-    public function isBasketNotEmpty(){
-        return $this->products->count() !== 0;
     }
 }

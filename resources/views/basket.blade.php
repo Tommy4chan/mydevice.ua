@@ -20,7 +20,7 @@
                     <tr>
                         <td>
                             <a href="{{route('product', $product->code)}}">
-                                <img height="56px" src="{{ URL::to('/') }}/img/macbook.webp">
+                                <img height="56px" src="{{Storage::url($product->image)}}">
                                 {{ $product->name }}
                             </a>
                         </td>

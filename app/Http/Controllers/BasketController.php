@@ -9,86 +9,88 @@ use Illuminate\Support\Facades\Auth;
 
 class BasketController extends Controller
 {
-    public function basket(){
+    public function basket()
+    {
         $orderId = session('orderId');
-        if(!is_null($orderId)){
+        if (!is_null($orderId)) {
             $order = Order::findOrFail($orderId);
-        }
-        else{
-            $order = Order::create();
-            session(['orderId' => $order->id]);
         }
 
         return view('basket', compact('order'));
     }
 
-    public function basketPlace(){
+    public function basketPlace()
+    {
         $orderId = session('orderId');
-        if(is_null($orderId)){
+        if (is_null($orderId)) {
             return redirect()->route('home');
         }
         $order = Order::find($orderId);
         return view('order', compact('order'));
     }
 
-    public function basketConfirm(Request $request){
+    public function basketConfirm(Request $request)
+    {
         $orderId = session('orderId');
-        if(is_null($orderId)){
+        if (is_null($orderId)) {
             return redirect()->route('home');
         }
         $order = Order::find($orderId);
         $success = $order->saveOrder($request->name, $request->phone);
 
-        if($success){
+        if ($success) {
             session()->flash('success', 'Замовлення прийняте в опрацювання');
-        }
-        else{
+        } else {
             session()->flash('warning', 'Помилка');
         }
+
+        Order::changeFullSum(-Order::getFullSum());
+
         return redirect()->route('home');
     }
 
-    public function basketAdd($productId){
+    public function basketAdd($productId)
+    {
         $orderId = session('orderId');
-        if(is_null($orderId)){
-            $order = Order::create()->id;
-            session(['orderId' => $order]);
-        }
-        else{
+        if (is_null($orderId)) {
+            $order = Order::create();
+            session(['orderId' => $order->id]);
+        } else {
             $order = Order::find($orderId);
         }
-        if($order->products->contains($productId)){
+        if ($order->products->contains($productId)) {
             $pivotRow = $order->products()->where('product_id', $productId)->first()->pivot;
             $pivotRow->count++;
             $pivotRow->update();
-        }
-        else{
+        } else {
             $order->products()->attach($productId);
         }
-        
-        if(Auth::check()){
+
+        if (Auth::check()) {
             $order->user_id = Auth::id();
             $order->save();
         }
 
         $product = Product::find($productId);
 
+        Order::changeFullSum($product->price);
+
         session()->flash('success', 'Добавлений товар ' . $product->name);
         return redirect()->route('basket');
     }
 
-    public function basketRemove($productId){
+    public function basketRemove($productId)
+    {
         $orderId = session('orderId');
-        if(is_null($orderId)){
+        if (is_null($orderId)) {
             return redirect()->route('basket');
         }
         $order = Order::find($orderId);
-        if($order->products->contains($productId)){
+        if ($order->products->contains($productId)) {
             $pivotRow = $order->products()->where('product_id', $productId)->first()->pivot;
-            if($pivotRow->count < 2){
+            if ($pivotRow->count < 2) {
                 $order->products()->detach($productId);
-            }
-            else{
+            } else {
                 $pivotRow->count--;
                 $pivotRow->update();
             }
@@ -96,6 +98,8 @@ class BasketController extends Controller
 
         $product = Product::find($productId);
 
+        Order::changeFullSum(-$product->price);
+        
         session()->flash('warning', 'Видалений товар ' . $product->name);
         return redirect()->route('basket');
     }

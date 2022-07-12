@@ -19,10 +19,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link {{ Route::currentRouteNamed('home') ?  'active' : '' }}" aria-current="page" href="{{route('home')}}">Головна сторінка</a>
+                        <a class="nav-link @routeactive('home')" aria-current="page" href="{{route('home')}}">Головна сторінка</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Route::currentRouteNamed('hotprices') ?  'active' : '' }}" href="{{route('hotprices')}}">Гарячі ціни</a>
+                        <a class="nav-link @routeactive('hotprices')" href="{{route('hotprices')}}">Гарячі ціни</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -32,28 +32,29 @@
                             @foreach($categoriesList as $category)
                             <li><a class="dropdown-item {{ Request::url() == route('category', $category->code) ?  'active' : '' }}" href="{{route('category', $category->code)}}">{{$category->name}}</a></li>
                             @endforeach
-
-                            <!-- <li>
-                                <hr class="dropdown-divider">
-                            </li> -->
-
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Route::currentRouteNamed('basket') ?  'active' : '' }}" href="{{route('basket')}}">Корзина</a>
+                        <a class="nav-link @routeactive('basket')" href="{{route('basket')}}">Корзина</a>
                     </li>
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::currentRouteNamed('login') ?  'active' : '' }}" href="{{route('login')}}">Увійти</a>
+                            <a class="nav-link @routeactive('login')" href="{{route('login')}}">Увійти</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::currentRouteNamed('register') ?  'active' : '' }}" href="{{route('register')}}">Зареєструватися</a>
+                            <a class="nav-link @routeactive('register')" href="{{route('register')}}">Зареєструватися</a>
                         </li>
                     @endguest
                     @auth
+                        @admin
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::currentRouteNamed('admin-orders') ?  'active' : '' }}" href="{{route('admin-orders')}}">Панель адміністратора</a>
+                            <a class="nav-link" href="{{route('orders.index')}}">Мій Кабінет</a>
                         </li>
+                        @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('user.orders.index')}}">Мій Кабінет</a>
+                        </li>
+                        @endadmin
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('get-logout')}}">Вийти</a>
                         </li>

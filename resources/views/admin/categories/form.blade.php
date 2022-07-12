@@ -23,23 +23,47 @@
             @else
                 {{route('categories.store')}}
             @endisset
-        " method="POST">
+        " method="POST" enctype="multipart/form-data">
             @isset($category)@method('PUT')@endisset
             @csrf
+            @error('name')
+                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 75px;">
+                    {{$message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @enderror
             <div class="input-group flex-nowrap">
                 <span class="input-group-text" id="addon-wrapping">Назва категорії</span>
-                <input type="name" class="form-control" name="name" placeholder="Телефони" value="@isset($category){{$category->name}}@endisset" aria-describedby="addon-wrapping">
+                <input type="name" class="form-control" name="name" placeholder="Телефони" value="{{old('name', isset($category) ? $category->name : null)}}" aria-describedby="addon-wrapping">
             </div>
+            @error('code')
+                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 75px;">
+                    {{$message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @enderror
             <div class="input-group flex-nowrap">
                 <span class="input-group-text" id="addon-wrapping">Код</span>
-                <input type="code" class="form-control" name="code" placeholder="phones" value="@isset($category){{$category->code}}@endisset" aria-describedby="addon-wrapping">
+                <input type="code" class="form-control" name="code" placeholder="phones" value="{{old('code', isset($category) ? $category->code : null)}}" aria-describedby="addon-wrapping">
             </div>
+            @error('description')
+                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 75px;">
+                    {{$message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @enderror
             <div class="input-group flex-nowrap">
                 <span class="input-group-text">Опис</span>
-                <textarea class="form-control" name="description" aria-label="With textarea">@isset($category){{$category->description}}@endisset</textarea>
+                <textarea class="form-control" name="description">{{old('description', isset($category) ? $category->description : null)}}</textarea>
             </div>
+            @error('image')
+                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 75px;">
+                    {{$message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @enderror
             <div class="mb-3">
-                <input class="form-control" type="file" name="photo" id="formFile">
+                <input class="form-control" type="file" name="image" id="formFile">
             </div>
             <button type="submit" class="btn btn-primary">Зберегти</button>
         </form>        

@@ -45,8 +45,8 @@
                     @include('layouts.productCard', compact('product'), ['type' => 'discount'])
                 </div>
             @endforeach
-
         </div>
+        {{$products->links()}}
     </div>
 </section>
 

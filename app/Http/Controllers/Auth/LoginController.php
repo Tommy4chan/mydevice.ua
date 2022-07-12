@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -22,7 +23,10 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     protected function redirectTo(){
-        return route('admin-order');
+        if(Auth::user()->isAdmin()){
+            return route('orders.index');
+        }
+        return route('user.orders.index');
     }
 
     /**

@@ -14,12 +14,25 @@ Auth::routes(
 
 Route::get('/logout', 'Auth\LoginController@logout')->name('get-logout');
 
-Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function(){
-    Route::group(['middleware' => 'is_admin'], function(){
-        Route::get('/orders', 'AdminController@index')->name('admin-orders');
-        Route::resource('categories', 'CategoryController');
+//Маршрути де потрібна авторизація
+Route::middleware(['auth'])->group(function () {
+
+    Route::group(['prefix' => 'user', 'as' => 'user.'], function(){
+        Route::get('/orders', 'PersonOrderController@index')->name('orders.index');
+        Route::get('/order/{order}', 'PersonOrderController@show')->name('orders.show');
     });
+
+    Route::group(['prefix' => 'admin'], function(){
+        Route::group(['middleware' => 'is_admin'], function(){
+            Route::get('/orders', 'OrderController@index')->name('orders.index');
+            Route::get('/order/{order}', 'OrderController@show')->name('orders.show');
+            Route::resource('categories', 'CategoryController');
+            Route::resource('products', 'ProductController');
+        });
+    });
+
 });
+
 
 
 

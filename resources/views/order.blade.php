@@ -7,7 +7,7 @@
 <section class="category">
     <div class="container">
         <h1 class="text-center">Підтвердіть ваше замовлення</h1>
-        <h2 class="text-center">Сума замовлення: {{$order->getFullSum()}} ₴</h2>
+        <h2 class="text-center">Сума замовлення: {{$order->calculateFullSum()}} ₴</h2>
         <form action="{{route('basket-confirm')}}" method="POST">
             @csrf
             <div class="input-group flex-nowrap">

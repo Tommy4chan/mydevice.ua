@@ -490,6 +490,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'orangehill/iseed' => array(
+            'pretty_version' => 'v3.0.2',
+            'version' => '3.0.2.0',
+            'reference' => '11f4355cdffc570eb231259f8700d760215df3fe',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../orangehill/iseed',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'phar-io/manifest' => array(
             'pretty_version' => '2.0.3',
             'version' => '2.0.3.0',

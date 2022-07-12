@@ -4,10 +4,13 @@
 
 @section('main_content')
 
+
 <section class="category">
     <div class="container">
+        <img src="{{Storage::url($category->image)}}" class="w-100">
         <h1 class="text-center">{{$category->name}}</h1>
         <h2 class="text-center">{{$category->description}}</h2>
+        @include('layouts.filter')
         <div class="row" style="margin-top: 40px;">
             @foreach($category->products as $product)
                 <div class="col-lg-6 d-flex justify-content-center">
@@ -16,6 +19,7 @@
             @endforeach
         </div>
     </div>
+    {{$category->products->links()}}
 </section>
 
 @endsection

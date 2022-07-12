@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Order;
 use Closure;
+use Illuminate\Contracts\Session\Session;
 
 class BasketIsNotEmpty
 {
@@ -16,15 +17,13 @@ class BasketIsNotEmpty
      */
     public function handle($request, Closure $next)
     {
-        $orderId = session('orderId');
-        if(!is_null($orderId)){
-            $order = Order::findOrFail($orderId);
-            if(!$order->isBasketNotEmpty()){
-                session()->flash('warning', 'У корзині нічого нема(');
-                return redirect()->route('home');
-            }
-        }
 
-        return $next($request);
+        $orderId = session('orderId');
+        if(!is_null($orderId) && Order::getFullSum() > 0){
+            return $next($request);
+        }
+        session()->flash('warning', 'У корзині нічого нема(');
+        return redirect()->route('home');
+        
     }
 }
