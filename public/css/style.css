@@ -1,0 +1,46 @@
+header{
+    padding: 100px 0;
+}
+
+.carousel .carousel-item img{
+    border-radius: 50px;
+}
+
+section{
+    padding: 100px 0;
+    border-top: #2f2f2f solid 3px;
+    border-bottom: #2f2f2f solid 3px;
+}
+
+.card img{
+    width: 90%;
+}
+
+.card{
+    border: #2f2f2f solid 1px;
+    border-radius: 25px;
+}
+
+.card .price{
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.card .price span{
+    color: #ca3e47;
+    font-size: 23px;
+    font-weight: 400;
+}
+
+section{
+    padding: 100px 0;
+    border-top: #2f2f2f 2px solid;
+    border-bottom: #2f2f2f 2px solid;
+}
+
+.badge{
+    border-radius: 25px;
+    background-color: #2f2f2f;
+    color: white;
+    padding: 5px;
+}
