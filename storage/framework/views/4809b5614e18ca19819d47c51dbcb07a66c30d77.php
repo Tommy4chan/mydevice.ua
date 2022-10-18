@@ -1,8 +1,6 @@
-@extends('layouts.defaultLayout')
+<?php $__env->startSection('title'); ?>Головна сторінка - MyDevice.ua <?php $__env->stopSection(); ?>
 
-@section('title')Головна сторінка - MyDevice.ua @endsection
-
-@section('main_content')
+<?php $__env->startSection('main_content'); ?>
 
 <header>
     <div class="container">
@@ -40,14 +38,17 @@
     <div class="container">
         <h1 class="text-center">Популярні товари</h1>
         <div class="row" style="margin-top: 40px;">
-            @foreach($products as $product)
+            <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="col-lg-6 d-flex justify-content-center">
-                    @include('layouts.productCard', compact('product'), ['type' => 'discount'])
+                    <?php echo $__env->make('layouts.productCard', compact('product'), ['type' => 'discount'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                 </div>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
-        {{$products->links()}}
+        <?php echo e($products->links()); ?>
+
     </div>
 </section>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.defaultLayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\Projects\Sites\OpenServer\domains\mydevice.ua\resources\views/home.blade.php ENDPATH**/ ?>
